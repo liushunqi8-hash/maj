@@ -1,0 +1,16 @@
+# Cloudflare Workers Builds 配置：连上 GitHub 仓库后，push 到 main 自动构建部署
+name = "maj-game"
+main = "dist/worker.js"
+compatibility_date = "2026-10-09"
+
+[build]
+command = "node build-mj.js"
+
+# Durable Object 房间绑定（ROOMS → GameRoom，与线上已有的 namespace 对应）
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "GameRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["GameRoom"]
